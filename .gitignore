@@ -1,0 +1,10 @@
+# Compiled source #
+###################
+*.exe
+*.o
+*.so
+*.dll
+
+# Ignore Kavatza dir #
+######################
+kavatza/*
