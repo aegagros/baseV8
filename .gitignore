@@ -5,6 +5,3 @@
 *.so
 *.dll
 
-# Ignore Kavatza dir #
-######################
-kavatza/*
