@@ -23,10 +23,19 @@ THE SOFTWARE.
 #define COMMON_H_
 
 #include <v8/v8.h>
-#include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <stdlib.h>
 #include <string>
+
+/**
+ * @file
+ * @brief Common declarations and functions
+ *
+ * This file contains the include statements to v8 headers and commonly used
+ * standard libraries. Some utility global functions are declared here mostly
+ * for internal use.
+ */
 
 /*
   Define a macro for checking function arity. This is to be called inside

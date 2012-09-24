@@ -270,7 +270,7 @@ namespace base {
 	 	 * \code
 		 * base::ClassDef<MyType>("MyType")
 		 *   // make some binding calls
-		 *   .bind();
+		 *   .bindTo();
 		 * \endcode
 		 *
 		 * @param obj The object template of which the class constructor function will be a member. If ommitted it binds the

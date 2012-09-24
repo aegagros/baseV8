@@ -89,7 +89,6 @@ THE SOFTWARE.
  *
  */
 
-#include "Table.h"
 #include "Class.h"
 #include "Table.h"
 
