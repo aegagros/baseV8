@@ -1,4 +1,4 @@
-baseV8 - Template-based v8 C++ to javascript binding utilities
+baseV8 - Template-based C++ to v8 javascript binding utilities
 
 Usage Instructions
 ==================
@@ -9,10 +9,9 @@ refer to the inline documentation, or the doxygen extracted documentation.
 Building
 ========
 To build the testing sample in linux/gcc, just navigate to the build folder and
-run 'make'. The binary will be placed in the 'bin' folder. Run it from there. To
-build the doxygen documentation run 'doxygen' the build folder. The documentation
-will be placed in the 'doc/html' folder. Just load 'index.html' in your browser
-and navigate over the documentation pages.
+run 'make'. The binary will be placed in the 'bin' folder. To build the doxygen
+documentation run 'doxygen' the build folder. The doc html files will be placed
+in the 'doc/html' folder.
 
 Influence / Inspiration
 =======================
@@ -20,14 +19,15 @@ This library is largely inspired by Stephan Beal's code for [v8-juice]
 (http://code.google.com/p/v8-juice/). His work acted as a source of reference
 and influence. However, having worked with libraries for the squirrel scripting
 language, I prefered the simplicity of the interface and the binding code of
-[sqrat] (http://scrat.sourceforge.net/) and [sqbind]
+[sqrat](http://scrat.sourceforge.net/) and [sqbind]
 (http://code.google.com/p/sqbind/).
 
 Disclaimer
 ==========
 This is my first attempt in distributing my code. It is a far from complete work
 in progress. Please do not rely on the efficiency, safety or stability of this
-software. If you need to use a utility binding library, please use v8-juice.
+software. If you need to use a production-level v8 binding library, please use
+v8-juice.
 
 To-do:
 ======

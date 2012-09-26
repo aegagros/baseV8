@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include <vector>
 
 #include "Common.h"
-#include "Type.h"
+#include "Type.h" 				// this is probably not needed
 #include "Def.h"
 #include "Constructor.h"
 #include "Property.h"
@@ -55,8 +55,9 @@ namespace base {
 		/**
 		 * @brief Bind a constructor signature. The actual constructor glue code will be generated automatically.
 		 *
-		 * This function can be used to bind more than one constructors for the same class. Use
-		 * it with no template parameters to specify a default constructor. Example usage:
+		 * This function can be used to bind more than one constructors for the same
+		 * class. Use it with no template parameters to specify a default
+		 * constructor. Example usage:
 		 * \code
 		 * base::ClassDef<MyType>("MyType")
 		 *   .constructor()		// same as: .constructor<MyType* (void)>()
@@ -64,6 +65,8 @@ namespace base {
 		 *   // bind other members here
 		 *   .bind();
 		 * \endcode
+		 *
+		 * You can bind constructors that take up to nine (9) parameters.
 		 * @return The class declaration to continue chained binding
 		 */
 		template<typename CF>

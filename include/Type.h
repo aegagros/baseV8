@@ -121,10 +121,6 @@ namespace base {
 	};
 
 	/*
-	 * Template Specializations
-	 */
-
-	/*
 	 * Note: is the below specialization necessary? I believe not, but I can't
 	 * recall why I wrote it in the first place (I completely paused all work on
 	 * this project for ~6 months). Maybe I stumbled upon a bug that needed this
