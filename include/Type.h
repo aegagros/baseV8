@@ -26,16 +26,20 @@ THE SOFTWARE.
 /**
  * @page about_types About types and type conversion
  *
- * The base::Type class template creates conversion between javascript values and C++ types. The base::Type::Cast()
- * function converts a javascript value to a pointer to a wrapped C++ type (if it exists) or returns zero. It also
- * converts a pointer to a C++ type or a C++ value to a wrapped javascript object.
+ * The base::Type class template generates conversion code between javascript
+ * values and C++ types. The base::Type::Cast() function converts a javascript
+ * value to a pointer to a wrapped C++ type (if it exists) or returns zero. It
+ * also converts a pointer to a C++ type or a C++ value to a wrapped javascript
+ * object.
  *
- * To create custom conversions for bound classes, create a template customization. For example:
+ * To create custom conversions for bound classes, create a template
+ * customization. For example:
+ *
  * @code
  * namespace base {
  *   template<>
  *   class Type<MyType> {
- *		static MyType Cast(v8::Handle<v8::Value> value) {
+ *		static MyType* Cast(v8::Handle<v8::Value> value) {
  *			// return an extracted MyType object
  *		}
  *		static v8::Handle<v8::Value> Cast(MyType& value) {
@@ -46,18 +50,18 @@ THE SOFTWARE.
  * @endcode
  *
  * There are default specializations that handle conversions for the following types:
- * <ul>
- *   <li>int</li>
- *   <li>unsigned int</li>
- *   <li>bool</li>
- *   <li>float</li>
- *   <li>double</li>
- *   <li>std::string</li>
- *   <li>std::vector's of the above types and pointers to bound classes</li>
- * </ul>
  *
- * Due to memory allocation issues, baseV8 cannot handle conversions to const char* and char* (C-style strings). Therefore
- * please use std::string for alphanumeric arguments.
+ * - int
+ * - unsigned int
+ * - bool
+ * - float
+ * - double
+ * - std::string
+ * - std::vector containing any of the above types and pointers to bound classes
+ *
+ * Due to memory allocation issues, baseV8 cannot handle conversions to
+ * const char* and char* (C-style strings). Thereforeplease use std::string for
+ * string arguments.
  */
 
 #include <vector>
@@ -77,12 +81,17 @@ namespace base {
 	typedef std::string String_t;
 	typedef v8::Handle<v8::Value> JSValue_t;
 
+	/*
+	Forward declaration of base::ClassDef
+	 */
 	template <typename T> class ClassDef;
 
 	/**
-	 * @brief A class to define generic conversions between native types and javascript values
+	 * @brief A class to define generic conversions between native types and
+	 * javascript values
 	 *
-	 * This class can also be used to create custom conversions. See @ref about_types for more information
+	 * This class can be used to create custom conversions. See @ref about_types
+	 * for more information
 	 */
 	template <typename T>
 	struct Type {
@@ -90,14 +99,18 @@ namespace base {
 		typedef T* ClassPtr;
 
 		static ClassPtr Cast(v8::Handle<v8::Value> value) {
-			if (!value->IsObject())
-				return 0;
-			v8::Handle<v8::Object> obj = v8::Handle<v8::Object>::Cast(value);
-			ClassPtr native_val;
-			if (ClassDef<T>::Assert(obj)) {
+			// Use the base::ClassDef<>::Assert() function to verify that the value
+			// is a wrapped instance of T
+			if (ClassDef<T>::Assert(value)) {
+				// force-cast the value into a javascript object
+				v8::Handle<v8::Object> obj = value->ToObject();
+				ClassPtr native_val;
 				ExtractExternal((void**) &native_val, obj->GetInternalField(0));
 				return native_val;
-			} else return 0;
+			}
+			else {
+				return 0;
+			}
 		}
 		static v8::Handle<v8::Value> Cast(ClassPtr obj) {
 			return ClassDef<T>::WrapInstance(obj);
@@ -107,9 +120,15 @@ namespace base {
 		}
 	};
 
+	/*
+	 * Template Specializations
+	 */
 
 	/*
-	 * Specializations
+	 * Note: is the below specialization necessary? I believe not, but I can't
+	 * recall why I wrote it in the first place (I completely paused all work on
+	 * this project for ~6 months). Maybe I stumbled upon a bug that needed this
+	 * to resolve. I plan to remove it, after verifying that it is not needed.
 	 */
 	template <>
 	struct Type<void> {

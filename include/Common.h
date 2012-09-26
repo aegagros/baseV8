@@ -22,7 +22,7 @@ THE SOFTWARE.
 #ifndef COMMON_H_
 #define COMMON_H_
 
-#include <v8/v8.h>
+#include "../../v8/include/v8.h"
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
@@ -76,10 +76,12 @@ namespace base {
    */
   void ExtractExternal(void** data, v8::Handle<v8::Value> value) {
     v8::Handle<v8::External> extData = v8::Handle<v8::External>::Cast(value);
-    if(!extData.IsEmpty())
+    if(!extData.IsEmpty()) {
       *data = v8::External::Unwrap(extData);
-    else
+    }
+    else {
       *data = 0;
+    }
   }
 
   /**

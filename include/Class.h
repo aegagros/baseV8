@@ -348,8 +348,15 @@ namespace base {
 		 * @return Returns true if the javascript value is a wrapped instance of class T
 		 */
 		static bool Assert(v8::Handle<v8::Value> value) {
-			// todo: implement ClassDef::Assert()
-			return true;
+			// Verify that the value is an object and that its constructor function
+			// name is this class definition name.
+			if (value->IsObject()) {
+				v8::String::AsciiValue ctr_name(value->ToObject()->GetConstructorName());
+				if (strcmp(ctr_name, GetName()) == 0) {
+					return true;
+				}
+			}
+			return false;
 		};
 
 		v8::Handle<v8::ObjectTemplate> getTemplate() {

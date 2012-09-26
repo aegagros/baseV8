@@ -5,3 +5,6 @@
 *.so
 *.dll
 
+# Compiled Help #
+#################
+doc/html/*

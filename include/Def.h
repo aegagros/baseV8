@@ -59,8 +59,9 @@ namespace base {
 		 */
 		static void* allocMember(size_t size) {
 			byte_t* tmp_ptr = m_ptr;
-			for (size_t i=0; i < size; i++)
+			for (size_t i=0; i < size; i++) {
 				m_ptr++;
+			}
 			return tmp_ptr;
 		};
 
