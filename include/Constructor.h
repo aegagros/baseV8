@@ -1,3 +1,24 @@
+/*
+Copyright (C) 2011 by Manolis Paterakis (http://media.opendesignstudio.gr)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
 /**
  * @file
  * @brief Template structures for constructors based on arity
@@ -6,19 +27,7 @@
  * parameter, from which only the signature is used to select from the available
  * overloads. Since the dummy function is never called, it can be a null
  * pointer.
- *
- * @verbatim
-    for (N in 0..N)
-      define template struct ConstrN
-        with ConstrN::Create(0..N args)
-    ----
-    for (N in 0..N)
-      define  createConstructor(dummyfunction(0..N args))
-        return ConstrN::Create()
-   @endverbatim
- *
  */
-
 #ifndef CONSTRUCTOR_H_
 #define CONSTRUCTOR_H_
 

@@ -19,10 +19,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-
-#ifndef TYPE_H_
-#define TYPE_H_
-
 /**
  * @page about_types About types and type conversion
  *
@@ -63,6 +59,9 @@ THE SOFTWARE.
  * const char* and char* (C-style strings). Thereforeplease use std::string for
  * string arguments.
  */
+
+#ifndef TYPE_H_
+#define TYPE_H_
 
 #include <vector>
 #include <list>

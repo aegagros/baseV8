@@ -19,15 +19,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef COMMON_H_
-#define COMMON_H_
-
-#include "../../v8/include/v8.h"
-#include <stdio.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <string>
-
 /**
  * @file
  * @brief Common declarations and functions
@@ -36,6 +27,14 @@ THE SOFTWARE.
  * standard libraries. Some utility global functions are declared here mostly
  * for internal use.
  */
+#ifndef COMMON_H_
+#define COMMON_H_
+
+#include "../../v8/include/v8.h"
+#include <stdio.h>
+#include <stdarg.h>
+#include <stdlib.h>
+#include <string>
 
 /*
   Define a macro for checking function arity. This is to be called inside
