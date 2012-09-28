@@ -51,6 +51,45 @@ namespace base {
 	};
 
 	template <typename C, typename V, bool Const>
+	struct MethodAccessors {
+		typedef V (C::*GetterType) (void);
+		typedef V (C::*GetterTypeC) (void);
+		typedef void (C::*SetterType) (V);
+
+		static v8::Handle<v8::Value> Get(v8::Local<v8::String> property,
+										const v8::AccessorInfo &info) {
+			v8::Handle<v8::External> g = v8::Handle<v8::External>::Cast(info.Data());
+			NativeAccessors<C, V>* pAcc = 0;
+			ExtractExternal((void**)&pAcc, g);
+
+			v8::Handle<v8::Object> self = info.This();
+			C* obj = Type<C>::Cast(self);
+			V val;
+			if (Const)
+				val = (obj->*(pAcc->getterC)) ();
+			else
+				val = (obj->*(pAcc->getter)) ();
+			return Type<V>::Cast(val);
+		}
+		typedef void (C::*SetterType) (V);
+		static void Set(v8::Local<v8::String> property,
+						v8::Local<v8::Value> value,
+						const v8::AccessorInfo &info) {
+
+			v8::Handle<v8::External> s = v8::Handle<v8::External>::Cast(info.Data());
+			NativeAccessors<C, V>* pAcc = 0;
+			ExtractExternal((void**)&pAcc, s);
+			SetterType setFunc = pAcc->setter;
+
+			v8::Handle<v8::Object> self = info.This();
+			C* obj = Type<C>::Cast(self);
+			V native_value = Type<V>::Cast(value);
+			(obj->*setFunc) (native_value);
+		}
+	};
+
+	/*
+	template <typename C, typename V, bool Const>
 	struct MethodGetter {
 		typedef V (C::*GetterType) (void);
 		typedef V (C::*GetterTypeC) (void);
@@ -90,7 +129,38 @@ namespace base {
 			(obj->*setFunc) (native_value);
 		};
 	};
+	 */
 
+	template <typename C, typename V>
+	struct PropAccessors {
+		static v8::Handle<v8::Value> Get(v8::Local<v8::String> property,
+										const v8::AccessorInfo &info) {
+			v8::Handle<v8::External> m = v8::Handle<v8::External>::Cast(info.Data());
+			NativeMember<C, V>* pMem = 0;
+			ExtractExternal((void**)&pMem, m);
+			V C::* mem = pMem->mem;
+
+			v8::Handle<v8::Object> self = info.This();
+			C* obj = Type<C>::Cast(self);
+			V val = obj->*mem;
+			return Type<V>::Cast(val);
+		}
+		static void Set(v8::Local<v8::String> property,
+						v8::Local<v8::Value> value,
+						const v8::AccessorInfo &info) {
+			v8::Handle<v8::External> m = v8::Handle<v8::External>::Cast(info.Data());
+			NativeMember<C, V>* pMem = 0;
+			ExtractExternal((void**)&pMem, m);
+			V C::* mem = pMem->mem;
+
+			v8::Handle<v8::Object> self = info.This();
+			C* obj = Type<C>::Cast(self);
+			V native_value = Type<V>::Cast(value);
+			obj->*mem = native_value;
+		}
+	};
+
+	/*
 	template <typename C, typename V>
 	struct PropGetter {
 		static v8::Handle<v8::Value> Get(v8::Local<v8::String> property,
@@ -123,7 +193,31 @@ namespace base {
 			obj->*mem = native_value;
 		};
 	};
+	 */
 
+	template <typename V>
+	struct VarAccessors {
+		static v8::Handle<v8::Value> Get(v8::Local<v8::String> property,
+						const v8::AccessorInfo &info) {
+			v8::Handle<v8::External> v = v8::Handle<v8::External>::Cast(info.Data());
+			V* pVar = 0;
+			ExtractExternal ((void**) &pVar, v);
+			V value = *pVar;
+			return Type<V>::Cast(value);
+		}
+		static void Set(v8::Local<v8::String> property,
+						v8::Local<v8::Value> value,
+						const v8::AccessorInfo &info) {
+			v8::Handle<v8::External> v = v8::Handle<v8::External>::Cast(info.Data());
+			V* pVar = 0;
+			ExtractExternal((void**)&pVar, v);
+
+			V native_value = Type<V>::Cast(value);
+			*pVar = native_value;
+		}
+	};
+
+	/*
 	template <typename V>
 	struct VarGetter {
 		static v8::Handle<v8::Value> Get(v8::Local<v8::String> property,
@@ -148,8 +242,7 @@ namespace base {
 			V native_value = Type<V>::Cast(value);
 			*pVar = native_value;
 		}
-	};
-
+	};*/
 
 	template <typename C, typename V>
 	void bindProperty(v8::Handle<v8::ObjectTemplate> templ,
