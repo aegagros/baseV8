@@ -249,9 +249,8 @@ namespace base {
 					  const char* name,
 					  V (C::*getter) (),
 					  void (C::*setter) (V) = 0) {
-		/* todo: use a smartptr or a memory pool to avoid memory leaks here */
-		//NativeAccessors<C, V>* pAcc = new NativeAccessors<C, V>(getter, setter);
-		NativeAccessors<C, V>* pAcc = (NativeAccessors<C, V>*) Def::allocMember(sizeof(NativeAccessors<C, V>));
+		NativeAccessors<C, V>* pAcc =
+			(NativeAccessors<C, V>*) Def::allocMember(sizeof(NativeAccessors<C, V>));
 		pAcc->getter = getter;
 		pAcc->setter = setter;
 		int flags = 0;
@@ -272,9 +271,8 @@ namespace base {
 					  const char* name,
 					  V (C::*getter) () const,
 					  void (C::*setter) (V) = 0) {
-		/* todo: use a smartptr or a memory pool to avoid memory leaks here */
-		//NativeAccessors<C, V>* pAcc = new NativeAccessors<C, V>(getter, setter);
-		NativeAccessors<C, V>* pAcc = (NativeAccessors<C, V>*) Def::allocMember(sizeof(NativeAccessors<C, V>));
+		NativeAccessors<C, V>* pAcc =
+			(NativeAccessors<C, V>*) Def::allocMember(sizeof(NativeAccessors<C, V>));
 		pAcc->getterC = getter;
 		pAcc->setter = setter;
 		int flags = 0;
@@ -295,9 +293,8 @@ namespace base {
 					  const char* name,
 					  V C::* var,
 					  bool readonly = false) {
-		/* todo: use a smartptr or a memory pool to avoid memory leaks here */
-		//NativeMember<C, V>* pMem = new NativeMember<C, V> (var);
-		NativeMember<C, V>* pMem = (NativeMember<C, V>*) Def::allocMember(sizeof(NativeMember<C, V>));
+		NativeMember<C, V>* pMem =
+			(NativeMember<C, V>*) Def::allocMember(sizeof(NativeMember<C, V>));
 		pMem->mem = var;
 		int flags = 0;
 		if (!readonly)
