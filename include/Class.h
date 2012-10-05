@@ -130,10 +130,11 @@ namespace base {
 		/**
 		 * @brief Bind a global function to be used as a method.
 		 *
-		 * First parameter type must be a pointer to class instance.
+		 * First parameter type must be a pointer to class instance. The binded
+		 * can take up to 8 parameters.
 		 * @param name The name of the script-side method
 		 * @param func A native global function in the form:
-		 * @code RetType func(C*, ArgType0 a0, ArgType1 a1, ArgType2 a2, ...) @endcode
+		 * @code RetType func(C*, ArgType0, ArgType1, ArgType2, ...) @endcode
 		 *
 		 * @return Returns *this to enable chain-based binding
 		 */
