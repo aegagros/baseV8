@@ -71,7 +71,6 @@ namespace base {
 				val = (obj->*(pAcc->getter)) ();
 			return Type<V>::Cast(val);
 		}
-		typedef void (C::*SetterType) (V);
 		static void Set(v8::Local<v8::String> property,
 						v8::Local<v8::Value> value,
 						const v8::AccessorInfo &info) {

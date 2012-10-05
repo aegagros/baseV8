@@ -52,7 +52,6 @@ THE SOFTWARE.
 #include <vector>
 
 #include "Common.h"
-#include "Type.h" 				// this is probably not needed
 #include "Def.h"
 #include "Constructor.h"
 #include "Property.h"

@@ -35,9 +35,9 @@ THE SOFTWARE.
 #include "Class.h"
 #include "Type.h"
 
-#define ASSERT_PARAM_COUNT(argsv, count) if(argsv.Length() != count) { return 0 }
+#define ASSERT_PARAM_COUNT(argsv, count) if(argsv.Length() != count) { return 0 ;}
 #define ASSERT_PARAM_TYPE(argsv, type, index) \
-  if (!ClassDef<type>::Assert(argsv[(index)])) { return 0 }
+  if (!ClassDef<type>::Assert(argsv[(index)])) { return 0; }
 
 namespace base {
   template <typename C>
