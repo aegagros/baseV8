@@ -38,22 +38,25 @@ THE SOFTWARE.
 
 namespace base {
 	/**
-	 * @brief Class used to generate all the glue code necessary to bind a native class to V8.
+	 * @brief Class used to generate all the glue code necessary to bind a native
+	 * class to V8.
 	 */
 	template <typename C>
 	class ClassDef : public Def {
 	public:
 		typedef C* (*ConstructorCallback) (const v8::Arguments&);
 		/**
-		 * @brief The signature of a callback function to be called every time an instance of this class is created in script code
-		 * @see ClassDef::setInstanceFunc
+		 * @brief The signature of a callback function to be called every time an
+		 * instance of this class is created in script code
+		 * @see ClassDef::setInstanceCallback
 		 * @param The newly created v8::Object
 		 * @param The pointer to the native instance
 		 */
-		typedef void (*InstanceFunc) (v8::Persistent<v8::Object>, C*);
+		typedef void (*InstanceCallback) (v8::Persistent<v8::Object>, C*);
 
 		/**
-		 * @brief Bind a constructor signature. The actual constructor glue code will be generated automatically.
+		 * @brief Bind a constructor signature. The actual constructor glue code
+		 * will be generated automatically.
 		 *
 		 * This function can be used to bind more than one constructors for the same
 		 * class. Use it with no template parameters to specify a default
@@ -105,7 +108,9 @@ namespace base {
 		 *
 		 * First parameter type must be a pointer to class instance.
 		 * @param name The name of the script-side method
-		 * @param func A native global function in the form: /code RetType func(C*, ArgType0 a0, ArgType1 a1, ArgType2 a2, ...) /endcode
+		 * @param func A native global function in the form:
+		 * @code RetType func(C*, ArgType0 a0, ArgType1 a1, ArgType2 a2, ...) @endcode
+		 *
 		 * @return Returns *this to enable chain-based binding
 		 */
 		template<typename F>
@@ -257,11 +262,11 @@ namespace base {
 
 		/**
 		 * @brief Specify a callback function to be called every time an instance of this class is created on the script side.
-		 * @param instFunc The function callback @see InstanceFunc
+		 * @param instFunc The function callback @see InstanceCallback
 		 * @return Returns *this to enable continuity of chain-based binding
 		 */
-		ClassDef<C>& setInstanceFunc(InstanceFunc instFunc) {
-			m_instanceFunc = instFunc;
+		ClassDef<C>& setInstanceCallback(InstanceCallback instFunc) {
+			m_InstanceCallback = instFunc;
 			return *this;
 		}
 
@@ -392,8 +397,8 @@ namespace base {
 			else {
 				jsp_obj.MakeWeak(native_obj, DtorCallback);
 				jsp_obj->SetInternalField(0, v8::External::New(native_obj));
-				if (m_instanceFunc)
-					m_instanceFunc(jsp_obj, native_obj);
+				if (m_InstanceCallback)
+					m_InstanceCallback(jsp_obj, native_obj);
 			}
 			return jsp_obj;
 		};
@@ -416,7 +421,7 @@ namespace base {
 		static std::string m_name;
 		static bool m_isDefined;
 		static size_t m_numMembers;
-		static InstanceFunc m_instanceFunc;
+		static InstanceCallback m_InstanceCallback;
 	};
 
 	template <typename C> v8::Persistent<v8::FunctionTemplate> ClassDef<C>::m_funcTempl;
@@ -426,7 +431,7 @@ namespace base {
 	template <typename C> std::string ClassDef<C>::m_name;
 	template <typename C> bool ClassDef<C>::m_isDefined = false;
 	template <typename C> size_t ClassDef<C>::m_numMembers = 0;
-	template <typename C> typename ClassDef<C>::InstanceFunc ClassDef<C>::m_instanceFunc = 0;
+	template <typename C> typename ClassDef<C>::InstanceCallback ClassDef<C>::m_InstanceCallback = 0;
 
 	/*
 	 * Specializations
