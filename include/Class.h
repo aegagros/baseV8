@@ -82,9 +82,10 @@ namespace base {
 		 * @brief Bind a constructor signature. The actual constructor glue code
 		 * will be generated automatically.
 		 *
-		 * This function can be used to bind more than one constructors for the same
-		 * class. Use it with no template parameters to specify a default
-		 * constructor. Example usage:
+		 * The native constructor can take up to nine parameters. This function can
+		 * be used to bind more than one constructors for the same class. Use it
+		 * with no template parameters to specify a default constructor. Example
+		 * usage:
 		 * \code
 		 * base::ClassDef<MyType>("MyType")
 		 *   .constructor()		// same as: .constructor<MyType* (void)>()
@@ -108,7 +109,9 @@ namespace base {
 		}
 
 		/**
-		 * @brief Bind a global function as a static member function
+		 * @brief Bind a native global function as a static member function.
+		 *
+		 * The native function can take up to 9 parameters.
 		 * @param name The name of the script-side method
 		 * @param func The native global function to bind to
 		 * @return Returns *this to enable chain-based binding
@@ -128,10 +131,10 @@ namespace base {
 		}
 
 		/**
-		 * @brief Bind a global function to be used as a method.
+		 * @brief Bind a native global function to be used as a method.
 		 *
 		 * First parameter type must be a pointer to class instance. The binded
-		 * can take up to 8 parameters.
+		 * function can take up to 9 parameters.
 		 * @param name The name of the script-side method
 		 * @param func A native global function in the form:
 		 * @code RetType func(C*, ArgType0, ArgType1, ArgType2, ...) @endcode

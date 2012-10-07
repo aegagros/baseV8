@@ -25,7 +25,23 @@ THE SOFTWARE.
 
 #include "Common.h"
 #include "Type.h"
-
+/**
+ * @file
+ * Template invocation callbacks for global functions that take a pointer to a
+ * class instance as first parameter, in order to bind them as object methods.
+ *
+ * File structure:
+ *
+ * <pre>
+ * struct GMethod [templated for return value type]
+ *   Func0...Func9 [templated for argument types]
+ *
+ * struct GMethod [template specialization for void return-type]
+ *   Func0...Func9
+ *
+ * GetGlobalMethodCallback() [overloaded for multiple function arity]
+ * </pre>
+ */
 namespace base {
 	template <typename C, typename R>
 	struct GMethod {

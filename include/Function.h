@@ -27,7 +27,7 @@ THE SOFTWARE.
 
 /**
  * @file
- * Global function templates for binding global functions as static member
+ * Template invocation callbacks for binding global functions as static member
  * functions.
  *
  * File structure:
