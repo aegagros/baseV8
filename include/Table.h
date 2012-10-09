@@ -46,7 +46,7 @@ namespace base {
 		}
 
 		template<typename V>
-		TableDef& var(const char* name, V* var) {
+		TableDef& field(const char* name, V* var) {
 			bindProperty(getTemplate(), name, var);
 			return *this;
 		}

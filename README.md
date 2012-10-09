@@ -34,13 +34,13 @@ To-do:
 Things to implement:
 
 * Object instances binding as tables
+* Passing v8 types (handles) as parameters, as a way to implement native
+  functions that take polymorphic-type arguments.
 
 Things to test:
 
-* Inheritance.
-* Custom class-types converting.
-* Passing v8 types (handles) as parameters.
-
+* Just about everything, but mostly Accessors and Inheritance.
+* Check the behaviour of custom class-types converting.
 
 Licence
 =======
