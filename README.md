@@ -16,8 +16,8 @@ in the 'doc/html/' folder.
 Influence / Inspiration
 =======================
 This library is largely inspired by Stephan Beal's code for [v8-juice]
-(http://code.google.com/p/v8-juice/). His work acted as a source of reference
-and influence. However, having worked with libraries for the squirrel scripting
+(http://code.google.com/p/v8-juice/). His work was a source of reference and
+influence. However, having worked with libraries for the squirrel scripting
 language, I prefered the simplicity of the interface and the binding code of
 [sqrat](http://scrat.sourceforge.net/) and [sqbind]
 (http://code.google.com/p/sqbind/).
