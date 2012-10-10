@@ -232,7 +232,6 @@ namespace base {
 			bindProperty(GetInstanceTmpl(), name, var, true);
 			return *this;
 		}
-
 		/**
 		 * @brief Bind an integer constant
 		 * @param name The name of the script-side constant
@@ -244,7 +243,6 @@ namespace base {
 			GetInstanceTmpl()->Set(name, v8::Integer::New(value));
 			return *this;
 		}
-
 		/**
 		 * @brief Inherit member bindings from a base class definition.
 		 *
@@ -254,11 +252,16 @@ namespace base {
 		 */
 		template <typename B>
 		ClassDef<C>& inherit() {
-			if (!ClassDef<B>::IsDefined())
-				v8::ThrowException(FormatString("Class '%s': cannot inherit, base class not defined", GetName()));
+			if (!ClassDef<B>::IsDefined()) {
+				v8::ThrowException(
+					FormatString(
+						"Class '%s': cannot inherit, base class not defined",
+						GetName()
+					)
+				);
+			}
 			GetFunctionTmpl()->Inherit(ClassDef<B>::GetFunctionTmpl());
 		}
-
 		/**
 		 * @brief Specify a callback function to be called every time an instance of
 		 * this class is created on the script side.
@@ -274,7 +277,6 @@ namespace base {
 			m_InstanceCallback = instFunc;
 			return *this;
 		}
-
 		/**
 		 * @brief Binds the class definition to another definition.
 		 *
@@ -305,9 +307,7 @@ namespace base {
 			}
 			else
 				obj->Set(v8::String::New(GetName()), GetFunctionTmpl()->GetFunction());
-
 		}
-
 		/**
 		 * @brief Class constructor. It essentialy inititalises the class binding
 		 * procedure.
@@ -323,7 +323,6 @@ namespace base {
 			m_name = name;
 			m_funcTempl->SetClassName(v8::String::New(m_name.c_str()));
 		}
-
 		/**
 		 * @brief Retrieve the function template of the class constructor function.
 		 *
@@ -407,7 +406,6 @@ namespace base {
 		v8::Handle<v8::ObjectTemplate> getTemplate() {
 			return GetInstanceTmpl();
 		}
-
 	protected:
 		static v8::Handle<v8::Value> CtorCallback(const v8::Arguments& args) {
 			v8::Persistent<v8::Object> jsp_obj(v8::Persistent<v8::Object>::New(args.This()));
@@ -421,7 +419,6 @@ namespace base {
 						*callee_str
 					)
 				);
-
 			if(!args.IsConstructCall())
 				return v8::ThrowException(
 					FormatString(
@@ -429,7 +426,6 @@ namespace base {
 						*callee_str
 					)
 				);
-
 			typename ConstructorList::iterator pConstr = m_constructors.begin();
 			while (pConstr != m_constructors.end()) {
 				ConstructorCallback call = *pConstr;
@@ -463,7 +459,6 @@ namespace base {
 			handle.Dispose();
 			handle.Clear();
 		}
-
 	private:
 		static v8::Persistent<v8::FunctionTemplate> m_funcTempl;
 		static v8::Handle<v8::ObjectTemplate> m_instTempl;
@@ -496,7 +491,6 @@ namespace base {
 		}
 		static bool Assert(v8::Handle<v8::Value> value) {return false;
 		}
-
 	};
 	template <>
 	class ClassDef<int> {
