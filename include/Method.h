@@ -23,7 +23,22 @@ THE SOFTWARE.
 #define METHOD_H_
 #include "Type.h"
 #include "Common.h"
-
+/**
+ * @file
+ * Template invocation callbacks for class member fucntions.
+ *
+ * File structure:
+ *
+ * <pre>
+ * struct Method [templated for return value type]
+ *   Func0...Func9 [templated for argument types]
+ *
+ * struct Method [template specialization for void return-type]
+ *   Func0...Func9
+ *
+ * GetMethodCallback() [overloaded for multiple function arity]
+ * </pre>
+ */
 namespace base {
 	template<typename C, typename R>
 	struct Method {
@@ -353,54 +368,45 @@ namespace base {
 	v8::InvocationCallback GetMethodCallback(R(C::*method)()) {
 		return &Method<C, R>::Func0;
 	}
-
 	template<typename C, typename R, typename A0>
 	v8::InvocationCallback GetMethodCallback(R(C::*method)(A0)) {
 		return &Method<C, R>::template Func1<A0>;
 	}
-
 	template<typename C, typename R, typename A0, typename A1>
 	v8::InvocationCallback GetMethodCallback(R(C::*method)(A0, A1)) {
 		return &Method<C, R>::template Func2<A0, A1>;
 	}
-
 	template<typename C, typename R, typename A0, typename A1, typename A2>
 	v8::InvocationCallback GetMethodCallback(R(C::*method)(A0, A1, A2)) {
 		return &Method<C, R>::template Func3<A0, A1, A2>;
 	}
-
 	template<typename C, typename R, typename A0, typename A1, typename A2,
 			typename A3>
 	v8::InvocationCallback GetMethodCallback(R(C::*method)(A0, A1, A2, A3)) {
 		return &Method<C, R>::template Func4<A0, A1, A2, A3>;
 	}
-
 	template<typename C, typename R, typename A0, typename A1, typename A2,
 			typename A3, typename A4>
 	v8::InvocationCallback GetMethodCallback(R(C::*method)(A0, A1, A2, A3, A4)) {
 		return &Method<C, R>::template Func5<A0, A1, A2, A3, A4>;
 	}
-
 	template<typename C, typename R, typename A0, typename A1, typename A2,
 			typename A3, typename A4, typename A5>
 	v8::InvocationCallback GetMethodCallback(R(C::*method)(A0, A1, A2, A3, A4, A5)) {
 		return &Method<C, R>::template Func6<A0, A1, A2, A3, A4, A5>;
 	}
-
 	template<typename C, typename R, typename A0, typename A1, typename A2,
 			typename A3, typename A4, typename A5, typename A6>
 	v8::InvocationCallback GetMethodCallback(
 			R(C::*method)(A0, A1, A2, A3, A4, A5, A6)) {
 		return &Method<C, R>::template Func7<A0, A1, A2, A3, A4, A5, A6>;
 	}
-
 	template<typename C, typename R, typename A0, typename A1, typename A2,
 			typename A3, typename A4, typename A5, typename A6, typename A7>
 	v8::InvocationCallback GetMethodCallback(
 			R(C::*method)(A0, A1, A2, A3, A4, A5, A6, A7)) {
 		return &Method<C, R>::template Func8<A0, A1, A2, A3, A4, A5, A6, A7>;
 	}
-
 	template<typename C, typename R, typename A0, typename A1, typename A2,
 			typename A3, typename A4, typename A5, typename A6, typename A7,
 			typename A8>
@@ -409,5 +415,4 @@ namespace base {
 		return &Method<C, R>::template Func9<A0, A1, A2, A3, A4, A5, A6, A7, A8>;
 	}
 }
-
 #endif /* METHOD_H_ */

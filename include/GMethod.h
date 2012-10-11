@@ -25,7 +25,23 @@ THE SOFTWARE.
 
 #include "Common.h"
 #include "Type.h"
-
+/**
+ * @file
+ * Template invocation callbacks for global functions that take a pointer to a
+ * class instance as first parameter, in order to bind them as object methods.
+ *
+ * File structure:
+ *
+ * <pre>
+ * struct GMethod [templated for return value type]
+ *   Func0...Func9 [templated for argument types]
+ *
+ * struct GMethod [template specialization for void return-type]
+ *   Func0...Func9
+ *
+ * GetGlobalMethodCallback() [overloaded for multiple function arity]
+ * </pre>
+ */
 namespace base {
 	template <typename C, typename R>
 	struct GMethod {
@@ -37,12 +53,9 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-
 			R ret_val = method(obj);
 			return Type<R>::Cast(ret_val);
 		}
-
-
 		// 1 parameters
 		template<typename A0>
 		static v8::Handle<v8::Value> Func1(const v8::Arguments& args) {
@@ -52,13 +65,10 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
-
+			A0 a0 = Type<A0>::Cast(args[0]);
 			R ret_val = method(obj, a0);
 			return Type<R>::Cast(ret_val);
 		}
-
-
 		// 2 parameters
 		template<typename A0, typename A1>
 		static v8::Handle<v8::Value> Func2(const v8::Arguments& args) {
@@ -68,14 +78,11 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
+			A0 a0 = Type<A0>::Cast(args[0]);
 			A1 a1 = Type<A1>::Cast(args[1]);
-
 			R ret_val = method(obj, a0, a1);
 			return Type<R>::Cast(ret_val);
 		}
-
-
 		// 3 parameters
 		template<typename A0, typename A1, typename A2>
 		static v8::Handle<v8::Value> Func3(const v8::Arguments& args) {
@@ -85,15 +92,12 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
+			A0 a0 = Type<A0>::Cast(args[0]);
 			A1 a1 = Type<A1>::Cast(args[1]);
 			A2 a2 = Type<A2>::Cast(args[2]);
-
 			R ret_val = method(obj, a0, a1, a2);
 			return Type<R>::Cast(ret_val);
 		}
-
-
 		// 4 parameters
 		template<typename A0, typename A1, typename A2, typename A3>
 		static v8::Handle<v8::Value> Func4(const v8::Arguments& args) {
@@ -103,16 +107,13 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
+			A0 a0 = Type<A0>::Cast(args[0]);
 			A1 a1 = Type<A1>::Cast(args[1]);
 			A2 a2 = Type<A2>::Cast(args[2]);
 			A3 a3 = Type<A3>::Cast(args[3]);
-
 			R ret_val = method(obj, a0, a1, a2, a3);
 			return Type<R>::Cast(ret_val);
 		}
-
-
 		// 5 parameters
 		template<typename A0, typename A1, typename A2, typename A3, typename A4>
 		static v8::Handle<v8::Value> Func5(const v8::Arguments& args) {
@@ -122,17 +123,14 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
+			A0 a0 = Type<A0>::Cast(args[0]);
 			A1 a1 = Type<A1>::Cast(args[1]);
 			A2 a2 = Type<A2>::Cast(args[2]);
 			A3 a3 = Type<A3>::Cast(args[3]);
 			A4 a4 = Type<A4>::Cast(args[4]);
-
 			R ret_val = method(obj, a0, a1, a2, a3, a4);
 			return Type<R>::Cast(ret_val);
 		}
-
-
 		// 6 parameters
 		template<typename A0, typename A1, typename A2, typename A3, typename A4, typename A5>
 		static v8::Handle<v8::Value> Func6(const v8::Arguments& args) {
@@ -142,18 +140,15 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
+			A0 a0 = Type<A0>::Cast(args[0]);
 			A1 a1 = Type<A1>::Cast(args[1]);
 			A2 a2 = Type<A2>::Cast(args[2]);
 			A3 a3 = Type<A3>::Cast(args[3]);
 			A4 a4 = Type<A4>::Cast(args[4]);
 			A5 a5 = Type<A5>::Cast(args[5]);
-
 			R ret_val = method(obj, a0, a1, a2, a3, a4, a5);
 			return Type<R>::Cast(ret_val);
 		}
-
-
 		// 7 parameters
 		template<typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
 		static v8::Handle<v8::Value> Func7(const v8::Arguments& args) {
@@ -163,19 +158,16 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
+			A0 a0 = Type<A0>::Cast(args[0]);
 			A1 a1 = Type<A1>::Cast(args[1]);
 			A2 a2 = Type<A2>::Cast(args[2]);
 			A3 a3 = Type<A3>::Cast(args[3]);
 			A4 a4 = Type<A4>::Cast(args[4]);
 			A5 a5 = Type<A5>::Cast(args[5]);
 			A6 a6 = Type<A6>::Cast(args[6]);
-
 			R ret_val = method(obj, a0, a1, a2, a3, a4, a5, a6);
 			return Type<R>::Cast(ret_val);
 		}
-
-
 		// 8 parameters
 		template<typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
 		static v8::Handle<v8::Value> Func8(const v8::Arguments& args) {
@@ -185,7 +177,7 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
+			A0 a0 = Type<A0>::Cast(args[0]);
 			A1 a1 = Type<A1>::Cast(args[1]);
 			A2 a2 = Type<A2>::Cast(args[2]);
 			A3 a3 = Type<A3>::Cast(args[3]);
@@ -193,12 +185,9 @@ namespace base {
 			A5 a5 = Type<A5>::Cast(args[5]);
 			A6 a6 = Type<A6>::Cast(args[6]);
 			A7 a7 = Type<A7>::Cast(args[7]);
-
 			R ret_val = method(obj, a0, a1, a2, a3, a4, a5, a6, a7);
 			return Type<R>::Cast(ret_val);
 		}
-
-
 		// 9 parameters
 		template<typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
 		static v8::Handle<v8::Value> Func9(const v8::Arguments& args) {
@@ -208,7 +197,7 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
+			A0 a0 = Type<A0>::Cast(args[0]);
 			A1 a1 = Type<A1>::Cast(args[1]);
 			A2 a2 = Type<A2>::Cast(args[2]);
 			A3 a3 = Type<A3>::Cast(args[3]);
@@ -217,12 +206,10 @@ namespace base {
 			A6 a6 = Type<A6>::Cast(args[6]);
 			A7 a7 = Type<A7>::Cast(args[7]);
 			A8 a8 = Type<A8>::Cast(args[8]);
-
 			R ret_val = method(obj, a0, a1, a2, a3, a4, a5, a6, a7, a8);
 			return Type<R>::Cast(ret_val);
 		}
 	};
-
 	template <typename C>
 	struct GMethod<C, void> {
 		// 0 parameters
@@ -233,12 +220,9 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-
 			method(obj);
 			return v8::Undefined();
 		}
-
-
 		// 1 parameters
 		template<typename A0>
 		static v8::Handle<v8::Value> Func1(const v8::Arguments& args) {
@@ -248,13 +232,10 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
-
+			A0 a0 = Type<A0>::Cast(args[0]);
 			method(obj, a0);
 			return v8::Undefined();
 		}
-
-
 		// 2 parameters
 		template<typename A0, typename A1>
 		static v8::Handle<v8::Value> Func2(const v8::Arguments& args) {
@@ -264,14 +245,11 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
+			A0 a0 = Type<A0>::Cast(args[0]);
 			A1 a1 = Type<A1>::Cast(args[1]);
-
 			method(obj, a0, a1);
 			return v8::Undefined();
 		}
-
-
 		// 3 parameters
 		template<typename A0, typename A1, typename A2>
 		static v8::Handle<v8::Value> Func3(const v8::Arguments& args) {
@@ -281,15 +259,12 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
+			A0 a0 = Type<A0>::Cast(args[0]);
 			A1 a1 = Type<A1>::Cast(args[1]);
 			A2 a2 = Type<A2>::Cast(args[2]);
-
 			method(obj, a0, a1, a2);
 			return v8::Undefined();
 		}
-
-
 		// 4 parameters
 		template<typename A0, typename A1, typename A2, typename A3>
 		static v8::Handle<v8::Value> Func4(const v8::Arguments& args) {
@@ -299,16 +274,13 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
+			A0 a0 = Type<A0>::Cast(args[0]);
 			A1 a1 = Type<A1>::Cast(args[1]);
 			A2 a2 = Type<A2>::Cast(args[2]);
 			A3 a3 = Type<A3>::Cast(args[3]);
-
 			method(obj, a0, a1, a2, a3);
 			return v8::Undefined();
 		}
-
-
 		// 5 parameters
 		template<typename A0, typename A1, typename A2, typename A3, typename A4>
 		static v8::Handle<v8::Value> Func5(const v8::Arguments& args) {
@@ -323,12 +295,9 @@ namespace base {
 			A2 a2 = Type<A2>::Cast(args[2]);
 			A3 a3 = Type<A3>::Cast(args[3]);
 			A4 a4 = Type<A4>::Cast(args[4]);
-
 			method(obj, a0, a1, a2, a3, a4);
 			return v8::Undefined();
 		}
-
-
 		// 6 parameters
 		template<typename A0, typename A1, typename A2, typename A3, typename A4, typename A5>
 		static v8::Handle<v8::Value> Func6(const v8::Arguments& args) {
@@ -338,7 +307,7 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
+			A0 a0 = Type<A0>::Cast(args[0]);
 			A1 a1 = Type<A1>::Cast(args[1]);
 			A2 a2 = Type<A2>::Cast(args[2]);
 			A3 a3 = Type<A3>::Cast(args[3]);
@@ -348,8 +317,6 @@ namespace base {
 			method(obj, a0, a1, a2, a3, a4, a5);
 			return v8::Undefined();
 		}
-
-
 		// 7 parameters
 		template<typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
 		static v8::Handle<v8::Value> Func7(const v8::Arguments& args) {
@@ -359,19 +326,16 @@ namespace base {
 			ExtractExternal((void**) &methodPtr, args.Data());
 			M method = *methodPtr;
 			C* obj = Type<C>::Cast(args.Holder());
-				A0 a0 = Type<A0>::Cast(args[0]);
+			A0 a0 = Type<A0>::Cast(args[0]);
 			A1 a1 = Type<A1>::Cast(args[1]);
 			A2 a2 = Type<A2>::Cast(args[2]);
 			A3 a3 = Type<A3>::Cast(args[3]);
 			A4 a4 = Type<A4>::Cast(args[4]);
 			A5 a5 = Type<A5>::Cast(args[5]);
 			A6 a6 = Type<A6>::Cast(args[6]);
-
 			method(obj, a0, a1, a2, a3, a4, a5, a6);
 			return v8::Undefined();
 		}
-
-
 		// 8 parameters
 		template<typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
 		static v8::Handle<v8::Value> Func8(const v8::Arguments& args) {
@@ -389,12 +353,9 @@ namespace base {
 			A5 a5 = Type<A5>::Cast(args[5]);
 			A6 a6 = Type<A6>::Cast(args[6]);
 			A7 a7 = Type<A7>::Cast(args[7]);
-
 			method(obj, a0, a1, a2, a3, a4, a5, a6, a7);
 			return v8::Undefined();
 		}
-
-
 		// 9 parameters
 		template<typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
 		static v8::Handle<v8::Value> Func9(const v8::Arguments& args) {
@@ -413,81 +374,60 @@ namespace base {
 			A6 a6 = Type<A6>::Cast(args[6]);
 			A7 a7 = Type<A7>::Cast(args[7]);
 			A8 a8 = Type<A8>::Cast(args[8]);
-
 			method(obj, a0, a1, a2, a3, a4, a5, a6, a7, a8);
 			return v8::Undefined();
 		}
 	};
-
 	// 0 parameters
 	template<typename C, typename R>
 	v8::InvocationCallback GetGlobalMethodCallback(R(*method)(C*)) {
 		return &GMethod<C, R>::Func0;
 	}
-
-
 	// 1 parameters
 	template<typename C, typename R, typename A0>
 	v8::InvocationCallback GetGlobalMethodCallback(R(*method)(C*, A0)) {
 		return &GMethod<C, R>::template Func1<A0>;
 	}
-
-
 	// 2 parameters
 	template<typename C, typename R, typename A0, typename A1>
 	v8::InvocationCallback GetGlobalMethodCallback(R(*method)(C*, A0, A1)) {
 		return &GMethod<C, R>::template Func2<A0, A1>;
 	}
-
-
 	// 3 parameters
 	template<typename C, typename R, typename A0, typename A1, typename A2>
 	v8::InvocationCallback GetGlobalMethodCallback(R(*method)(C*, A0, A1, A2)) {
 		return &GMethod<C, R>::template Func3<A0, A1, A2>;
 	}
-
-
 	// 4 parameters
 	template<typename C, typename R, typename A0, typename A1, typename A2, typename A3>
 	v8::InvocationCallback GetGlobalMethodCallback(R(*method)(C*, A0, A1, A2, A3)) {
 		return &GMethod<C, R>::template Func4<A0, A1, A2, A3>;
 	}
-
-
 	// 5 parameters
 	template<typename C, typename R, typename A0, typename A1, typename A2, typename A3, typename A4>
 	v8::InvocationCallback GetGlobalMethodCallback(R(*method)(C*, A0, A1, A2, A3, A4)) {
 		return &GMethod<C, R>::template Func5<A0, A1, A2, A3, A4>;
 	}
-
-
 	// 6 parameters
 	template<typename C, typename R, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5>
 	v8::InvocationCallback GetGlobalMethodCallback(R(*method)(C*, A0, A1, A2, A3, A4, A5)) {
 		return &GMethod<C, R>::template Func6<A0, A1, A2, A3, A4, A5>;
 	}
-
-
 	// 7 parameters
 	template<typename C, typename R, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
 	v8::InvocationCallback GetGlobalMethodCallback(R(*method)(C*, A0, A1, A2, A3, A4, A5, A6)) {
 		return &GMethod<C, R>::template Func7<A0, A1, A2, A3, A4, A5, A6>;
 	}
-
-
 	// 8 parameters
 	template<typename C, typename R, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
 	v8::InvocationCallback GetGlobalMethodCallback(R(*method)(C*, A0, A1, A2, A3, A4, A5, A6, A7)) {
 		return &GMethod<C, R>::template Func8<A0, A1, A2, A3, A4, A5, A6, A7>;
 	}
-
-
 	// 9 parameters
 	template<typename C, typename R, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
 	v8::InvocationCallback GetGlobalMethodCallback(R(*method)(C*, A0, A1, A2, A3, A4, A5, A6, A7, A8)) {
 		return &GMethod<C, R>::template Func9<A0, A1, A2, A3, A4, A5, A6, A7, A8>;
 	}
-
 }
 
 #endif /* GMETHOD_H_ */
