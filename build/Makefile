@@ -1,23 +1,23 @@
 # Basic variables
-CC=g++
+CC=colorgcc
 CXXFLAGS=-g -O2 -Wall
 
 # Working folders
 SRCDIR=../src
 HEADERDIR=../include
+LIBDIR=../../v8/lib
 
 #Files
 OBJS=v8test.o
-HEADERS=baseV8.h Class.h Common.h Constructor.h Def.h Exception.h Function.h Method.h Property.h Table.h Type.h
 
 # Link libraries
-LIBS=-lv8 -lv8preparser -lpthread
+LIBS=-lv8_base -lv8_nosnapshot -lpreparser_lib -lpthread
 
 # Target
 TARGET=../bin/basev8test
 
 $(TARGET): $(OBJS)
-	$(CC) $(CXXFLAGS) -o $(TARGET) $(OBJS) $(LIBS)
+	$(CC) $(CXXFLAGS) -o $(TARGET) $(OBJS) -L$(LIBDIR) $(LIBS)
 
 %.o: $(SRCDIR)/%.cpp
 	$(CC) $(CXXFLAGS) -c $<

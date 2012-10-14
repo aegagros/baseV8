@@ -112,7 +112,7 @@ namespace base {
 		 */
 		ClassDef& callback(const char* name, v8::InvocationCallback callback) {
 			int flags = v8::DontDelete | v8::ReadOnly;
-			getTemplate->Set(
+			getTemplate()->Set(
 				v8::String::New(name),
 				v8::FunctionTemplate::New(callback),
 				(v8::PropertyAttribute) flags
