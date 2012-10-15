@@ -39,9 +39,27 @@ namespace base {
 			memcpy(funcPtr, &func, sizeof(F));
 			getTemplate()->Set(
 				v8::String::New(name),
-				v8::FunctionTemplate::New(GetFunctionCallback(func), v8::External::New(funcPtr), GetFunctionSignature(func)),
+				v8::FunctionTemplate::New(
+					GetFunctionCallback(func),
+					v8::External::New(funcPtr),
+					GetFunctionSignature(func)
+				),
 				(v8::PropertyAttribute) flags);
 			return *this;
+		}
+		/**
+		 * @brief Bind a formal v8 InvocationCallback as a function
+		 * @param  name The name of the script-side function
+		 * @param  callback The callback function to bind
+		 * @return Returns *this to enable chain-based binding
+		 */
+		TableDef& callback(const char* name, v8::InvocationCallback callback) {
+			int flags = v8::DontDelete | v8::ReadOnly;
+			getTemplate()->Set(
+				v8::String::New(name),
+				v8::FunctionTemplate::New(callback),
+				(v8::PropertyAttribute) flags
+			);
 			return *this;
 		}
 

@@ -105,6 +105,22 @@ namespace base {
 			return *this;
 		}
 		/**
+		 * @brief Bind a formal v8 InvocationCallback as a member function
+		 * @param  name The name of the script-side method
+		 * @param  callback The callback function to bind
+		 * @return Returns *this to enable chain-based binding
+		 */
+		ClassDef& callback(const char* name, v8::InvocationCallback callback) {
+			int flags = v8::DontDelete | v8::ReadOnly;
+			getTemplate()->Set(
+				v8::String::New(name),
+				v8::FunctionTemplate::New(callback),
+				(v8::PropertyAttribute) flags
+			);
+			return *this;
+		}
+
+		/**
 		 * @brief Bind a native global function to be used as a member function.
 		 *
 		 * First parameter type must be a pointer to class instance. The native
@@ -470,15 +486,23 @@ namespace base {
 		static size_t m_numMembers;
 		static InstanceCallback m_InstanceCallback;
 	};
-
-	template <typename C> v8::Persistent<v8::FunctionTemplate> ClassDef<C>::m_funcTempl;
-	template <typename C> v8::Handle<v8::ObjectTemplate> ClassDef<C>::m_instTempl;
-	template <typename C> v8::Handle<v8::ObjectTemplate> ClassDef<C>::m_protoTempl;
-	template <typename C> std::vector<typename ClassDef<C>::ConstructorCallback> ClassDef<C>::m_constructors;
-	template <typename C> std::string ClassDef<C>::m_name;
-	template <typename C> bool ClassDef<C>::m_isDefined = false;
-	template <typename C> size_t ClassDef<C>::m_numMembers = 0;
-	template <typename C> typename ClassDef<C>::InstanceCallback ClassDef<C>::m_InstanceCallback = 0;
+	// Static member definitions
+	template <typename C>
+	v8::Persistent<v8::FunctionTemplate> ClassDef<C>::m_funcTempl;
+	template <typename C>
+	v8::Handle<v8::ObjectTemplate> ClassDef<C>::m_instTempl;
+	template <typename C>
+	v8::Handle<v8::ObjectTemplate> ClassDef<C>::m_protoTempl;
+	template <typename C>
+	std::vector<typename ClassDef<C>::ConstructorCallback> ClassDef<C>::m_constructors;
+	template <typename C>
+	std::string ClassDef<C>::m_name;
+	template <typename C>
+	bool ClassDef<C>::m_isDefined = false;
+	template <typename C>
+	size_t ClassDef<C>::m_numMembers = 0;
+	template <typename C>
+	typename ClassDef<C>::InstanceCallback ClassDef<C>::m_InstanceCallback = 0;
 
 	/*
 	 * Specializations
